@@ -22,7 +22,7 @@
       osc.frequency.value = frecuencia;        // tono más agudo = frecuencia más alta
       osc.connect(gain);
       gain.connect(ctx.destination);           // "destination" = las bocinas/audífonos
-      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.setValueAtTime(1, ctx.currentTime);
       // El volumen baja exponencialmente hasta casi 0: así el beep se apaga solo
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
       osc.start();
