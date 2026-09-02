@@ -19,7 +19,7 @@
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
       const osc = ctx.createOscillator();      // el osc es lo que produce el tono
       const gain = ctx.createGain();           // el gain controla el volumen en el tiempo
-      osc.frequency.value = frecuencia;        // tono más agudo = frecuencia más alta
+      osc.frequency.value = frecuencia/3;        // tono más agudo = frecuencia más alta
       osc.connect(gain);
       gain.connect(ctx.destination);           // "destination" = las bocinas/audífonos
       gain.gain.setValueAtTime(1, ctx.currentTime);
@@ -45,7 +45,7 @@
     // Crea estrellas de fondo por código para ambientar el juego en el espacio
     // ==================================================================
     AFRAME.registerComponent('campo-estrellas', {
-      schema: { cantidad: { type: 'number', default: 100 } },
+      schema: { cantidad: { type: 'number', default: 10000 } },
       init: function () {
         for (let i = 0; i < this.data.cantidad; i++) {
           const radio = 40;
@@ -111,8 +111,8 @@
     // ==================================================================
     AFRAME.registerComponent('gestor-juego', {
       init: function () {
-        this.puntos = 12;
-        this.segundosRestantes = 120;
+        this.puntos = 1;
+        this.segundosRestantes = 100;
         this.jugando = true;
 
         // Guardamos referencias a los textos del HUD para no buscarlos cada vez
@@ -154,10 +154,10 @@
       },
 
       reiniciar: function () {
-        this.puntos = 12;
+        this.puntos = 1;
         this.segundosRestantes = 100;
         this.jugando = true;
-        this.hudPuntos.setAttribute('value', 'Puntos: 12');
+        this.hudPuntos.setAttribute('value', 'Puntos: 1');
         this.hudTiempo.setAttribute('value', 'Tiempo: 100');
         this.hudFinal.setAttribute('visible', false);
         this.botonReiniciar.setAttribute('visible', false);
@@ -241,8 +241,8 @@
         <a-cursor raycaster="objects: .clickable" color="#FFFFFF"></a-cursor>
 
         <!-- HUD: hijos de la cámara, por eso "viajan" contigo al mirar alrededor -->
-        <a-text id="hud-puntos" value="Puntos: 12" position="-0.9 0.6 -1.4" width="2.2" color="#FFFFFF"></a-text>
-        <a-text id="hud-tiempo" value="Tiempo: 120" position="0.4 0.6 -1.4" width="2.2" color="#FFFFFF"></a-text>
+        <a-text id="hud-puntos" value="Puntos: 1" position="-0.9 0.6 -1.4" width="2.2" color="#FFFFFF"></a-text>
+        <a-text id="hud-tiempo" value="Tiempo: 100" position="0.4 0.6 -1.4" width="2.2" color="#FFFFFF"></a-text>
 
         <!-- Mensaje de fin de juego: oculto hasta que se acaba el tiempo -->
         <a-text id="hud-final" value="" position="-0.9 0.15 -1.4" width="2.6" color="#FFD166" visible="false"></a-text>
